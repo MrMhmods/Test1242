@@ -41,6 +41,28 @@ client.on('message', message => {
 
 
 
+client.on('message', message => {
+
+if(message.content.startsWith(prefix + 'info')) {
+
+var ping = `${Date.now() - message.createdTimestamp}`
+
+let info = new Discord.RichEmbed()
+
+.setColor('BLUE')
+
+.setAuthor(`${client.user.tag} info`, client.user.avatarURL)
+
+.setDescription(`**Bot ping: \`${ping}\`\n\nServers Size: \`${client.guilds.size}\`\n
+
+Bot Prefix: \`${prefix}\`\n\nBot Owner: <@526702104849678340>**`) 
+
+message.channel.send(info)
+
+}
+
+});
+
 
 
 
