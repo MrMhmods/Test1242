@@ -137,6 +137,59 @@ client.on('message', message => {
 
 
 
+client.on('message', message => {
+    if (message.author.bot) return;
+    if (message.content.startsWith("say")) {
+if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You dont have** `ADMINISTRATOR` **permission**');
+var args = message.content.trim().split(/ +/g).slice(1);
+let cname = args[0];
+let chan = message.guild.channels.find(element => element.name === cname);
+if (chan) {
+    let text = args.slice(1).join(" ");
+    message.delete();
+    chan.send(text);
+} else {
+    let text = args.join(" ");
+    message.delete();
+    message.channel.send(text);
+   }
+}
+});
+
+
+
+client.on("guildMemberRemove", member=>{
+
+  let roles = [];
+
+  member.roles.forEach(r=> roles.push(r.id));
+
+  members[member.guild.id][member.id] = roles;
+
+  saveChanges();
+
+});
+
+client.on("guildMemberAdd", member=> {
+
+  if(members[member.guild.id][member.id] !== undefined){
+
+    member.addRoles(members[member.guild.id][member.id], "Returning roles after leaving");
+
+    members[member.guild.id][member.id] = [];
+
+  };
+
+  saveChanges();
+
+});
+
+function saveChanges(){
+
+  fs.writeFileSync("./members.json", JSON.stringify(members, null, 4));
+
+};
+
 
 
 
