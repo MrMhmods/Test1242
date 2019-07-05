@@ -74,11 +74,61 @@ message.channel.send(info)
 
 
 
+client.on('message', message => { 
+
+    const mm = message.mentions.members.first() || message.member;
+
+    if(message.content.startsWith(prefix + "avatar")){
+
+        const embed = new Discord.RichEmbed()
+
+        .setAuthor(mm.user.tag, mm.user.avatarURL)
+
+        .setTitle("Avatar Link")
+
+        .setURL(mm.user.avatarURL)
+
+        .setImage(mm.user.avatarURL)
+
+        .setFooter(`Requested By : ${message.author.tag}`, message.author.avatarURL)
+
+        message.channel.send(embed);
+
+    }
+
+});
 
 
 
 
 
+
+
+client.on('message', message => {
+
+  const aa = message.content.split(" ").slice(1).join(" ");
+
+  if(message.content.startsWith(prefix + "skin")){
+
+    if(!aa) return message.reply(`❌  -  **${prefix}skin <name>**`);
+
+    var ss = new Discord.RichEmbed()
+
+    .setTitle(`${aa}'s Skin!`)
+
+    .setURL(`https://minotar.net/armor/body/${aa}/100.png`)
+
+    .setThumbnail(`https://minotar.net/avatar/${aa}`)
+
+    .setImage(`https://minotar.net/armor/body/${aa}/100.png`)
+
+    .setFooter(`Requested By : ${message.author.tag}`, message.author.avatarURL)
+
+    message.channel.send(ss);
+
+  }
+
+});
 
 
 
